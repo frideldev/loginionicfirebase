@@ -1,0 +1,7 @@
+{
+  "name": "loginfire",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular-standalone"
+}
