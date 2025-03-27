@@ -138,3 +138,22 @@ Tambien se contara con variables bandera donde se utilizara un loading, si exist
   loading = false;
   errorMessage = '';
 ```
+### Formularios Reactivos
+Los formularios reactivos en angular nos ayudan a que se realice validaciones cuando tipeamos en los inputs y nos muestre diferentes validaciones para garantizar la informacion que requiere el back end.
+para iniciar los formularios reactivos es necesario inicializarlo con:
+```
+private fb = inject(FormBuilder);
+```
+posterior debemos inicializar en el constructor lo siguiente
+```
+  constructor() {
+    this.loginForm = this.fb.group({
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', [Validators.required, Validators.minLength(6)]]
+    });
+  }
+```
+**Validators.required** : el validador para que el input si o si tenga un elemento.
+**Validators.minLength(n)**: para determinar el minimo de caracteres en un input.
+**Validators.email** : determinar los validadores para un correcto escrito de un mail ( no le falta la @ . , .com u otros).
+Si desean profundizar sobre los validadores pueden ingresar en el siguiente link: [Hacer click aqui](https://angular.dev/api/forms/Validators).
