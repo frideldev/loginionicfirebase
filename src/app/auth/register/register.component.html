@@ -1,0 +1,55 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Registro</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/login"></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+    <ion-item>
+      <ion-label position="floating">Email</ion-label>
+      <ion-input type="email" formControlName="email"></ion-input>
+    </ion-item>
+    <div *ngIf="registerForm.get('email')?.touched && registerForm.get('email')?.errors?.['required']">
+      <ion-text color="danger">Email es requerido</ion-text>
+    </div>
+    <div *ngIf="registerForm.get('email')?.touched && registerForm.get('email')?.errors?.['email']">
+      <ion-text color="danger">Email no válido</ion-text>
+    </div>
+
+    <ion-item>
+      <ion-label position="floating">Password</ion-label>
+      <ion-input type="password" formControlName="password"></ion-input>
+    </ion-item>
+    <div *ngIf="registerForm.get('password')?.touched && registerForm.get('password')?.errors?.['required']">
+      <ion-text color="danger">Password es requerido</ion-text>
+    </div>
+    <div *ngIf="registerForm.get('password')?.touched && registerForm.get('password')?.errors?.['minlength']">
+      <ion-text color="danger">Password debe tener al menos 6 caracteres</ion-text>
+    </div>
+
+    <ion-item>
+      <ion-label position="floating">Confirmar Password</ion-label>
+      <ion-input type="password" formControlName="confirmPassword"></ion-input>
+    </ion-item>
+    <div *ngIf="registerForm.errors?.['passwordMismatch'] && registerForm.get('confirmPassword')?.touched">
+      <ion-text color="danger">Los passwords no coinciden</ion-text>
+    </div>
+
+    <ion-button expand="block" type="submit" [disabled]="!registerForm.valid || loading">
+      <ion-spinner name="crescent" *ngIf="loading"></ion-spinner>
+      <span *ngIf="!loading">Registrarse</span>
+    </ion-button>
+
+    <ion-text color="danger" *ngIf="errorMessage">
+      {{ errorMessage }}
+    </ion-text>
+    
+    <ion-button expand="block" fill="clear" routerLink="/login">
+      ¿Ya tienes cuenta? Inicia sesión
+    </ion-button>
+  </form>
+</ion-content>
