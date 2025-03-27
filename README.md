@@ -165,3 +165,48 @@ posterior debemos inicializar en el constructor lo siguiente
 **Validators.email** : determinar los validadores para un correcto escrito de un mail ( no le falta la @ . , .com u otros).
 
 Si desean profundizar sobre los validadores pueden ingresar en el siguiente link: [Hacer click aqui](https://angular.dev/api/forms/Validators).
+## Funcion OnSubmit
+Para ejecutar la accion del boton del login se crea la funcion onsubmit pero firebase es un servicio en tiempo real con conexion asincrona por ello ejecutaremos mediante el async dicha funcion.
+
+en primer instancia comparamos la existencia del formulario mediante el .valid e inicializamos nuestras variables como el loading y los mensajes que tengamos y llamamos a nuestras variables de los inputs que en esta oportunidad tenemos dos que es email y password.
+```
+if (this.loginForm.valid) {
+      this.loading = true;
+      this.errorMessage = '';
+      
+      const { email, password } = this.loginForm.value;
+```
+Despues debemos llamar al authservice donde dicho servicio lo subscribimos mediante un observable  si desean profundizar los observables les dejo el siguiente link [Hacer click aqui](https://v17.angular.io/guide/observablesnos). el servicio pide:
+- las variables de email e input.
+- Acciones de **next**: para saber cuando todo este validado que es el siguiente paso.
+- **error**: si existe alguna accion de error en la validacion como el usuario o la contraseña no sea valida.
+- **complete**: para dar una accion con el loading y completar el proceso.
+ 
+
+**Codigo Completo**
+
+```
+ async onSubmit() {
+    if (this.loginForm.valid) {
+      this.loading = true;
+      this.errorMessage = '';
+      
+      const { email, password } = this.loginForm.value;
+      
+      this.authService.login(email, password).subscribe({
+        next: (response) => {
+          console.log('Login exitoso:', response);
+          this.router.navigate(['/home']);
+        },
+        error: (error) => {
+          console.error('Error en login:', error);
+          this.errorMessage = 'Error en la autenticación. Por favor, verifique sus credenciales.';
+          this.loading = false;
+        },
+        complete: () => {
+          this.loading = false;
+        }
+      });
+    }
+  }
+```
