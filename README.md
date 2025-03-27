@@ -154,6 +154,9 @@ posterior debemos inicializar en el constructor lo siguiente
   }
 ```
 **Validators.required** : el validador para que el input si o si tenga un elemento.
+
 **Validators.minLength(n)**: para determinar el minimo de caracteres en un input.
+
 **Validators.email** : determinar los validadores para un correcto escrito de un mail ( no le falta la @ . , .com u otros).
+
 Si desean profundizar sobre los validadores pueden ingresar en el siguiente link: [Hacer click aqui](https://angular.dev/api/forms/Validators).
