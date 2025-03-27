@@ -101,9 +101,14 @@ es importante ingresar con tu cuenta de google
 ## Programar el Servicio y Conexion con Firebase
 crear dentro de app la carpeta services y dentro de services el archivo auth.service.ts
 Existen estas opciones que tiene firebase auth
-**Auth** : El que realizar el inicio de la autentificacion
-**signInWithEmailAndPassword**: componente que realiza la verificacion de autentificacion. **createUserWithEmailAndPassword** : Componente que registra los datos de la autentificacion
+**Auth** : El que realizar el inicio de la autentificacion.
+
+**signInWithEmailAndPassword**: componente que realiza la verificacion de autentificacion.
+
+**createUserWithEmailAndPassword** : Componente que registra los datos de la autentificacion.
+
 **signOut** : componente para hacer cierre de sesion.
+
 Se debe crear funciones dentro del services llamando a estos componentes segun este codigo:
 ```
 private auth: Auth = inject(Auth);
