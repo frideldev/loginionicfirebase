@@ -10,9 +10,12 @@
       <ion-label position="floating">Email</ion-label>
       <ion-input type="email" formControlName="email"></ion-input>
     </ion-item>
-    <div *ngIf="loginForm.get('email')?.touched && loginForm.get('email')?.errors?.['required']">
-      <ion-text color="danger">Email es requerido</ion-text>
-    </div>
+    @if(loginForm.get('email')?.touched && loginForm.get('email')?.errors?.['required']){
+      <div>
+        <ion-text color="danger">Email es requerido</ion-text>
+      </div>
+    }
+   
 
     <ion-item>
       <ion-label position="floating">Password</ion-label>

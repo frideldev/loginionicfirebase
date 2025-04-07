@@ -15,7 +15,27 @@ export const routes: Routes = [
     loadComponent: () => import('./auth/register/register.component').then(m => m.RegisterComponent)
   },
   {
+    path: 'tabs',
+    loadComponent: () => import('./pages/tabs/tabs.page').then(m => m.TabsPage),
+    children: [
+      {
+        path: 'horizontal',
+        loadComponent: () => import('./pages/horizontal/horizontal.page').then(m => m.HorizontalPage)
+      },
+      {
+        path: 'vertical',
+        loadComponent: () => import('./pages/vertical/vertical.page').then(m => m.VerticalPage)
+      },
+      {
+        path: '',
+        redirectTo: 'horizontal',
+        pathMatch: 'full'
+      }
+    ]
+  },
+  {
     path: 'home',
-    loadComponent: () => import('./home/home.page').then(m => m.HomePage)
+    redirectTo: 'tabs',
+    pathMatch: 'full'
   }
 ];

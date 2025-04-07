@@ -1,0 +1,78 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Home</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="onLogout()">
+        <ion-icon slot="icon-only" name="log-out-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <!-- User Info Card -->
+  <ion-card>
+    <!-- ...existing user info code... -->
+  </ion-card>
+
+  <!-- Horizontal Scroll Section -->
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Meals Gallery</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <div class="horizontal-scroll">
+        <div class="meals-container">
+          <ion-card *ngFor="let meal of horizontalMeals" class="meal-card">
+            <img [src]="meal.strMealThumb" [alt]="meal.strMeal"/>
+            <ion-card-header>
+              <ion-card-title>{{ meal.strMeal }}</ion-card-title>
+              <ion-card-subtitle>{{ meal.strCategory }}</ion-card-subtitle>
+            </ion-card-header>
+          </ion-card>
+        </div>
+        
+        <ion-infinite-scroll horizontal="true" (ionInfinite)="onHorizontalInfinite($event)">
+          <ion-infinite-scroll-content loadingSpinner="bubbles"
+                                     loadingText="Loading more meals...">
+          </ion-infinite-scroll-content>
+        </ion-infinite-scroll>
+      </div>
+    </ion-card-content>
+  </ion-card>
+
+  <!-- Vertical List Section -->
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Todas las Comidas</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-list>
+        <ion-item *ngFor="let meal of verticalMeals">
+          <ion-thumbnail slot="start">
+            <img [src]="meal.strMealThumb" [alt]="meal.strMeal"/>
+          </ion-thumbnail>
+          <ion-label>
+            <h2>{{ meal.strMeal }}</h2>
+            <p>{{ meal.strCategory }} | {{ meal.strArea }}</p>
+          </ion-label>
+        </ion-item>
+      </ion-list>
+
+      <div *ngIf="isLoading" class="ion-text-center">
+        <ion-spinner name="crescent"></ion-spinner>
+      </div>
+
+      <ion-infinite-scroll (ionInfinite)="onVerticalInfinite($event)">
+        <ion-infinite-scroll-content
+          loadingSpinner="bubbles"
+          loadingText="Cargando más comidas...">
+        </ion-infinite-scroll-content>
+      </ion-infinite-scroll>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-button expand="block" color="danger" (click)="onLogout()">
+    Cerrar Sesión
+  </ion-button>
+</ion-content>

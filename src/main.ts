@@ -7,12 +7,14 @@ import { getAuth, provideAuth } from '@angular/fire/auth';
 import { environment } from './environments/environment';
 import { provideRouter } from '@angular/router';
 import { routes } from './app/app.routes';
+import { provideHttpClient } from '@angular/common/http';
 
 bootstrapApplication(AppComponent, {
   providers: [
     importProvidersFrom(IonicModule.forRoot()),
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideAuth(() => getAuth()),
-  provideRouter(routes)
+    provideRouter(routes),
+    provideHttpClient()
   ]
 });
