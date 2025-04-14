@@ -14,8 +14,9 @@ import { CommonModule } from '@angular/common';
 
         <ion-tab-button tab="vertical">
           <ion-icon name="list-outline"></ion-icon>
-          <ion-label>List</ion-label>
+          <ion-label>Perritos</ion-label>
         </ion-tab-button>
+       
       </ion-tab-bar>
     </ion-tabs>
   `,

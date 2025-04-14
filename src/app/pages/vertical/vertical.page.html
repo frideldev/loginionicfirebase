@@ -1,23 +1,51 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>List View</ion-title>
+    <ion-title>Pet Services</ion-title>
+    <ion-buttons slot="end">
+      <ion-button>
+        <ion-icon name="filter-outline"></ion-icon>
+        <ion-badge *ngIf="activeFilters.length">{{activeFilters.length}}</ion-badge>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
-<ion-content class="ion-padding">
-  <ion-list>
-    <ion-item *ngFor="let meal of verticalMeals">
-      <ion-thumbnail slot="start">
-        <img [src]="meal.strMealThumb" [alt]="meal.strMeal"/>
-      </ion-thumbnail>
-      <ion-label>
-        <h2>{{ meal.strMeal }}</h2>
-        <p>{{ meal.strCategory }} | {{ meal.strArea }}</p>
-      </ion-label>
-    </ion-item>
-  </ion-list>
+<ion-content>
+  <!-- Active Filters -->
+  <div class="filters-container" *ngIf="activeFilters.length">
+    <ion-chip *ngFor="let filter of activeFilters" (click)="removeFilter(filter.toString())">
+      <ion-label>{{filter}}</ion-label>
+      <ion-icon name="close-circle"></ion-icon>
+    </ion-chip>
+  </div>
 
-  <ion-infinite-scroll (ionInfinite)="onVerticalInfinite($event)">
-    <ion-infinite-scroll-content></ion-infinite-scroll-content>
-  </ion-infinite-scroll>
+  <!-- Services List -->
+  <div class="services-container">
+    <ion-card *ngFor="let service of petServices" class="service-card">
+      <img [src]="service.imageUrl" [alt]="service.name"/>
+      
+      <ion-card-header>
+        <ion-card-title>{{service.name}}</ion-card-title>
+        <ion-card-subtitle>{{service.serviceType}}</ion-card-subtitle>
+      </ion-card-header>
+
+      <ion-card-content>
+        <div class="service-details">
+          <ion-text color="medium">{{service.schedule}}</ion-text>
+          <ion-text color="dark" class="price">${{service.price}}/hr</ion-text>
+        </div>
+        
+        <ion-button 
+          fill="clear" 
+          class="bookmark-btn"
+          (click)="toggleBookmark({ id: service.id, bookmarked: service.isBookmarked })">
+          <ion-icon 
+            [name]="service.isBookmarked ? 'bookmark' : 'bookmark-outline'"
+            [color]="service.isBookmarked ? 'primary' : 'medium'">
+          </ion-icon>
+        </ion-button>
+      </ion-card-content>
+    </ion-card>
+  </div>
 </ion-content>
+
