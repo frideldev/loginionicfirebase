@@ -27,20 +27,30 @@
             "style": "kebab-case"
           }
         ],
-        "@angular-eslint/directive-selector": [
-          "error",
-          {
-            "type": "attribute",
-            "prefix": "app",
-            "style": "camelCase"
-          }
-        ]
+        "max-len": ["error", 80, {
+          "ignoreComments": true,
+          "ignoreUrls": true,
+          "ignoreStrings": true,
+          "ignoreTemplateLiterals": true
+        }],
+        "max-lines": ["error", {
+          "max": 200,
+          "skipBlankLines": true,
+          "skipComments": true
+        }],
+        "max-lines-per-function": ["error", {
+          "max": 50,
+          "skipBlankLines": true,
+          "skipComments": true
+        }]
       }
     },
     {
       "files": ["*.html"],
       "extends": ["plugin:@angular-eslint/template/recommended"],
-      "rules": {}
+      "rules": {
+        "max-len": ["error", 80]
+      }
     }
   ]
 }
